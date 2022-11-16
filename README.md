@@ -1,2 +1,2 @@
 # web_technopark
-LAB1
+LAB2
