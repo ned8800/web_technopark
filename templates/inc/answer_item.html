@@ -1,0 +1,46 @@
+{% load app_filters %}
+
+<div class="card mt-2">
+    <!-- Question -->
+    {% comment %} иначе footer загораживает...  {% endcomment %}
+    <div class="upper-anchor" id="{{ answer.id }}"> </div>
+    <div class="card-body"">
+        <div class="row">
+            <div class="col ps-4">
+                <div  class="col-8">
+                    <form class="mb-1">
+                        {% if answer.is_correct %}
+                            <div type="button" class="correct-button btn btn-success" id="{{answer.id}}" data-id="{{answer.id}}"> Correct </div>
+                        {% else %}
+                            <div type="button" class="correct-button btn btn-light" id="{{answer.id}}" data-id="{{answer.id}}"> Correct </div>
+                        {% endif %}
+                        {% comment %} button долго прожимается {% endcomment %}
+                    </form>
+                </div>
+                <div class="row p-1">
+                    <p>
+                        {{ answer.text }}  
+                    </p>
+                </div>
+                <div class="row">
+                    <div class="col-2 text-end">
+                        {% if answer|isLikeUpAnswer:request.user.profile %}
+                            <button class="fs-3 button-likes like-answer like-up" data-id="{{answer.id}}">{{ answer.likeanswer_set.all.count }}</button>
+                        {% else %}
+                            <button class="fs-3 button-likes like-answer" data-id="{{answer.id}}">{{ answer.likeanswer_set.all.count }}</button>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row m-2 mx-4">
+                    <div class="text-end mt-3">
+                        <img src="{{ answer.author.user.profile.avatar.url }}" style="object-fit: cover" alt="Avatar" width="40" height="40">
+                    <a href="#" class="member-miniature"><strong>{{answer.author.user.username}}</strong></a>
+                        answered {{ answer.date|convert_date }} ago 
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

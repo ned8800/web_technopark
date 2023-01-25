@@ -1,0 +1,50 @@
+{% load app_filters %}
+
+<div class="card mb-2">
+    <!-- Question -->
+    <div class="card-header  fs-4 text-left">
+        <a href={% url 'question' question_id=question.id %} class="question-title">
+            {{ question.title }}
+        </a>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <!-- Likes and answers counters -->
+            <div class="col-2 text-end">
+                    {% if question|isLikeUp:request.user.profile %}
+                        <button class="fs-3 button-likes like-question like-up" data-id="{{question.id}}">{{ question.like_set.all.count }}</button>
+                    {% else %}
+                        <button class="fs-3 button-likes like-question" data-id="{{question.id}}">{{ question.like_set.all.count }}</button>
+                    {% endif %}
+            </div>
+
+            <!-- Question main part -->
+            <div class="col-10">
+                <!-- Text -->
+                <div class="row p-1">
+                    {{ question.text }} 
+                    {% comment %}  {% lorem 100 w random %} {% endcomment %}
+                </div>
+                <div class="row mt-3">
+                    <!-- Tags -->
+                    <div class="col-3">
+                        <a class="answers-counter" href="{% url 'question' question_id=question.id %}">{{ question.answer_set.all.count }} Answers</a>
+                    </div>
+                    <div class="col-9">
+
+                        {% for tag in question.tags.all %}
+                            <a href="{% url 'tag' tag_id=tag.id%}" class="tag">{{ tag.title }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row m-2 mx-4">
+                <div class="text-end mt-3">
+                    <img src="{{ question.author.user.profile.avatar.url }}" style="object-fit: cover" alt="Avatar" width="70" height="70">
+                    <a href="#" class="member-miniature"><strong>{{question.author.user.username}}</strong></a>
+                    asked {{ question.date|convert_date }} ago 
+                </div>
+        </div>
+    </div>
+</div>

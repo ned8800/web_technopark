@@ -1,0 +1,45 @@
+upstream askme {
+    server 127.0.0.1:8080;
+}
+
+server {
+    listen 80 default_server;
+    server_name askme.com;
+
+    error_log /var/log/nginx/error.log;
+    access_log /var/log/nginx/access.log;
+
+    location /  {
+	proxy_set_header Host $host;
+    proxy_pass http://askme;
+	proxy_cache askme_zone_;
+	proxy_cache_valid 200 302 10m;
+	proxy_cache_valid 404     1m;
+	
+	proxy_ignore_headers Set-Cookie;
+	proxy_hide_header Set-Cookie;
+    }
+    
+    location ^~ /media {
+    root  /mnt/c/МГТУ/_Технопарк/try_2/Web/main-project-askme-myadelets;
+    expires 30d;
+    }
+
+
+    location ~* ^.+\.(html)$ {
+	root /mnt/c/МГТУ/_Технопарк/try_2/Web/main-project-askme-myadelets/static;
+    }
+
+    location /static {
+        root /mnt/c/МГТУ/_Технопарк/try_2/Web/main-project-askme-myadelets;
+	expires 30d;
+    }
+}
+
+
+
+
+
+
+
+
