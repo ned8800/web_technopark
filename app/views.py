@@ -16,36 +16,6 @@ from datetime import datetime, timezone, timedelta
 
 from django.contrib import auth
 
-
-'''
-    Задачи 1
-    + Логин создает юзера, а нужно профиль
-    - аватарка
-    + В settings добавить аватарку
-    + textArea вопроса слишком большой
-    + декомпозировать контроллеры
-    + get_shared_context не нужен
-    + проверить частные случаи
-        + если, находясь на странице настроек, нажать log out - попадаешь на log in
-        + неавторизованный пользователь при отправке ответа на вопрос попадет на log in
-        + скролл к ответу реализована через якоря (атрибут id = id ответа)
-        + после регистрации пользователь попадает на страницу вопросов
-    + определить поля, обязательные для заполнения
-    + включить validate
-    + теги без запятой?
-    + проверить выполнение всех задач с гитхаба (не все выполнены)
-    - добавить лайк на ответ (сортировка ответов по рейтингу)
-    
-    Задачи 2
-    - аватарка
-    - лайк к ответу
-    - сортировка ответом по лайкам, при равном количестве лайков по дате
-    - пагинация при одной странице должна отсутсвовать
-    - секунды, прошедшие с момента отправки ответа или вопроса, не должна содержать десятые доли
-        - 4.34 ago, 6.4 ago (либо две цифры после точки, либо одна)
-        - нужно пофиксить 
-'''
-
 COUNT_BEST_ITEMS = 10
 
 def paginate(objects_list, request, per_page = 5):
@@ -231,9 +201,3 @@ def tag(request, tag_id : int):
     context = { 'best_items' : get_best_items(), 'question' : questions, 'tag' :  tag, 'page' : page }
     return render(request, "tag.html", context=context)
 
-# Замечания
-# для перенаправления на изначальную страницу после нажатия login
-
-# login.html    : <form action="{% url 'login' %}?continue={{request.GET.continue}}" method="post" class="form"> 
-# question.html : <a href="{% url "login" %}?continue={{request.path}}" class="btn btn-outline-warning"> Войдите в систему </a>
-# base.html     : href="{% url "login" %}?continue={{request.path}}
