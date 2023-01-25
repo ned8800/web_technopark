@@ -1,0 +1,150 @@
+<!doctype html>
+
+{% load static %}
+<html lang="en" class="h-100">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+
+    <title>Questions</title>
+
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "css/styles.css" %}" rel="stylesheet">
+</head>
+<body class="d-flex flex-column h-100">
+
+<header>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'index' %}">AskMyadelets</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}">All Questions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'ask' %}">New question</a>
+                    </li>
+                </ul>
+
+                <!-- Search-->
+                <form class="d-flex me-auto search-input">
+                    <input class="form-control me-2" type="search" placeholder="Search question" aria-label="Search">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </form>
+
+                <!-- Placeholder-->
+                <div class="me-auto"></div>
+
+                <!-- Userblock authorized-->
+                <div class="d-flex">
+                    
+                    <!-- Name section -->
+                    {% if request.user.is_authenticated %}
+                    {% comment %} hidden тег для чтения из js для устранения ошибок при лайке {% endcomment %}
+                    <div hidden id="user-is-logged">yes</div>
+                    <img src="{{ request.user.profile.avatar.url }}" style="object-fit: cover" alt="Avatar" width="70" height="70">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <span> {{ request.user.username }} </span>
+                            </div>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="row mt-2">
+                            <!-- Settings btn -->
+                            <div class="col">
+                                <div>
+                                    <a class="link-secondary" href="{% url 'settings' %}"> Settings </a>
+                                </div>
+                            </div>
+
+                            <!-- Log out btn -->
+                            
+                            <div class="col">
+                                <form method="get" action="#">
+                                    <a href="{% url 'logout' %}" class="link-secondary">Log out</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                        <div hidden id="user-is-logged">no</div>
+                        <div class="col">
+                            <a href="{% url 'login' %}?continue={{request.path}}" class="link-secondary fs-6 px-2">Log in</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Begin page content -->
+<main class="flex-shrink-0">
+    <div class="container">
+
+        <div class="row mt-3">
+            <!-- Questions-->
+            <div class="col-9">
+            
+                {% block  content %}
+                {% endblock %}
+
+            </div>
+
+            <!-- Tags and best members -->
+            <div class="col-3">
+                <div class="mt-4 mb-2">
+                    <span class="fs-1 pe-5">Popular tags</span>
+                </div>
+                <!-- Tags -->
+                <div class="row">
+                    <div class="col">
+                        {% for tag in best_items.tags %}
+                            <a href="{% url 'tag' tag_id=tag.id %}" class="tag">{{ tag.title }} </a>
+                        {% endfor %}
+
+                    </div>
+                </div>
+                <!-- Best members -->
+                <div class="row">
+                    <div class="mt-4 mb-2">
+                        <span class="fs-2 pe-5">Best members</span>
+                    </div>
+                    <div class="col">
+                        {% for profile in best_items.profiles %}
+                            <div class="m-3">
+                                <img src="{{ profile.avatar.url }}" style="object-fit: cover" alt="Avatar" width="70" height="70">
+                                <a href="#" class="member-miniature"> {{ profile.user.username }} </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<footer class="footer mt-auto py-3 bg-light">
+    <div class="container">
+        <span class="text-muted">Subscribe to us!</span>
+    </div>
+</footer>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="{%static "js/main.js"%}"></script>
+    <script>
+        var csrftoken = '{{ csrf_token }}';
+    </script>
+</body>
+</html>
+
+
