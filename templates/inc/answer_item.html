@@ -1,0 +1,46 @@
+{% load app_filters %}
+
+<div class="card mt-2">
+    <!-- Question -->
+    <div class="card-body"">
+        <div class="row">
+            <div class="col ps-4">
+                <div id="{{ answer.id }}" class="col-8">
+                    <form class="mb-1">
+                        {% if answer.is_correct %}
+                        {% comment %} {% if True %} {% endcomment %}
+                            <button type="button" class="btn btn-success">  Correct </button>
+                        {% else %}
+                            <button type="button" class="btn btn-light">    Correct </button>
+                        {% endif %}
+                    </form>
+                </div>
+                {% comment %} <div class="row p-1" id="{{ answer.id }}"> {% endcomment %}
+                <div class="row p-1">
+                    <p>
+                        {{ answer.text }}  
+                    </p>
+                </div>
+                <div class="row">
+                    <div class="col-2 text-end">
+                        <form class="mb-1">
+                            <input type="hidden">
+                            {% comment %} {% if answer.likeanswer_set.filter(author.user = request.user) %} {% endcomment %}
+                            <button class="fs-3 button-likes" type="submit">{{ answer.likeanswer_set.all.count }}</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="row m-2 mx-4">
+                    <div class="text-end mt-3">
+                        <img src="../static/img/common_avatar.png" alt="Avatar" width="50"
+                        height="50">
+                    <a href="#" class="member-miniature"><strong>{{answer.author.user.username}}</strong></a>
+                        answered {{ answer.date|convert_date }} ago 
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
