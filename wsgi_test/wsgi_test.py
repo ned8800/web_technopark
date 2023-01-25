@@ -37,11 +37,11 @@ def app(environ, start_response):
 # gunicorn wsgi_test:app 
 # конфигурация подтягивается сама, если находимся в директории
 
-# curl -X GET "http://127.0.0.1:8001/?id=3&name=mikhail&age=21"
+# curl -X GET "http://127.0.0.1:8001/?id=3&name=tim&age=21"
 
 # multipart/form-data
-# curl -X POST -F 'name=mikhail' -F 'id=3' -F 'email=mikhail@mail.ru' "http://127.0.0.1:8001/"
+# curl -X POST -F 'name=tim' -F 'id=3' -F 'email=tim@mail.ru' "http://127.0.0.1:8001/"
 
 # application/x-www-form-urlencoded
-# curl -X POST -d 'name=mikhail' -d 'id=3' -d 'email=mikhail@mail.ru' "http://127.0.0.1:8001/"
+# curl -X POST -d 'name=tim' -d 'id=3' -d 'email=tim@mail.ru' "http://127.0.0.1:8001/"
 

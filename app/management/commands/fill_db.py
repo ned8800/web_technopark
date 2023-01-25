@@ -8,17 +8,7 @@ import time
 import datetime
 from app import models
 
-'''
-Некоторые замечания
-1. 
-    - random.choise работает с QuerySet
-    - random.sample не работет с QuerySet (только List)
-2. Пользователи заполняются, начиная с pk = 2, т.к. pk = 1 для админа mikhail
-3. Скрипт для заполнения записями ПУСТОЙ БД (за исключением записи в User - админа mikhail) 
-'''
-
-
-# требование к заполнению - изначально база пустая
+# изначально база должна быть пустой
 class Command(BaseCommand):
     help = 'Command to do........'
     fake = Faker()

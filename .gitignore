@@ -1,6 +1,4 @@
 /venv
-sem5.txt
-sem6.txt
 *.pyc
 *__pycache__*
 my.cnf
