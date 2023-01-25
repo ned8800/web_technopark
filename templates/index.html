@@ -1,0 +1,23 @@
+<!doctype html>
+
+{% extends "inc/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="mt-4 mb-2">
+    <span class="fs-2 pe-5">New questions</span>
+    <span class="hot-question">
+        <a class="fs-5 hot-question" href="#">Hot questions</a>
+    </span>
+</div>
+
+{% for question in page.object_list %}
+<!-- Card sample -->
+    {% include "inc/question_item.html" %}
+{% endfor %}
+
+
+{% include "inc/paggination.html" %}
+
+{% endblock %}

@@ -1,0 +1,33 @@
+<div class="card mt-2">
+    <!-- Question -->
+    <div class="card-body">
+        <div class="row">
+            <div class="col ps-4">
+                <div class="row p-1">
+                    <p>
+                        {{ answer.text }}
+                    </p>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <form class="mb-1">
+                            {% if answer.is_correct %}
+                                <button type="button" class="btn btn-success">  Correct </button>
+                            {% else %}
+                                <button type="button" class="btn btn-light">    Correct </button>
+                            {% endif %}
+                        </form>
+                    </div>
+                    <!-- User's information -->
+                    <div class="col-4">
+                        <img src="../static/img/common_avatar.png" alt="Avatar" width="50"
+                            height="50">
+                        <a href="#" class="member-miniature">Name Surname</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

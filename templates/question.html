@@ -1,0 +1,27 @@
+<!doctype html>
+
+{% extends "inc/base.html"%}
+
+
+{% block content %}
+
+<div class="mt-4 mb-2">
+    <span class="fs-2 pe-5">Question</span> 
+</div>
+
+{% comment %} <div style="border: 4px solid #c4c4c4"> {% endcomment %}
+<div style="color: #c4c4c4">
+    {% include "inc/question_item.html" %}
+</div>
+
+<p class="divider-text"><span class="bg-light">ANSWERS</span></p>
+
+<!-- Answer card -->
+{% for answer in page.object_list %}
+    {% include "inc/answer_item.html" %}
+{% endfor %}
+
+{% include "inc/paggination.html" %}
+
+{% endblock %}
+                

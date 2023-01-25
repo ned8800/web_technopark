@@ -1,0 +1,25 @@
+<div class="mt-4 mb-2 pb-3">
+    <span class="fs-2 pe-5">Login</span>
+    <span class="alert alert-danger"> Error message! </span>
+</div>
+
+<form class="w-75">
+    <div class="mb-3">
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="Login">Title</span>
+            <input type="text" class="form-control" placeholder="Login" aria-label="Login"
+            aria-describedby="Login" name="Login" required>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="Pass">Password</span>
+            <input type="password" class="form-control" placeholder="Password" aria-label="Pass"
+            aria-describedby="Pass" name="Pass" required>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Log in!</button>
+    <a type="button" href="{% url 'register' %}" style="color: #0d6efdd9" class="mx-2 px-3 btn btn-outline-light">Create new account</a>
+</form>

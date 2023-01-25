@@ -1,2 +1,1 @@
-# web_technopark
-LAB2
+lab 2 Timofey
