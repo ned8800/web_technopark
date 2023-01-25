@@ -1,0 +1,31 @@
+<!doctype html>
+
+{% extends "inc/base.html"%}
+
+
+{% block content %}
+
+<div class="mt-4 mb-2">
+    <span class="fs-2 pe-5">Question</span> 
+</div>
+
+{% include "inc/question_item.html" %}
+
+<div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label fs-4 pe-5">Your answer</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+</div>
+<button type="submit" class="btn btn-primary">Answer!</button>
+
+<p class="divider-text"><span class="bg-light">ANSWERS</span></p>
+
+
+<!-- Answer card -->
+{% for answer in page.object_list %}
+    {% include "inc/answer_item.html" %}
+{% endfor %}
+
+{% include "inc/paggination.html" %}
+
+{% endblock %}
+                
