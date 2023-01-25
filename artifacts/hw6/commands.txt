@@ -1,0 +1,25 @@
+gunicorn -c askme/gunicorn.conf.py askme.wsgi
+
+tail -n 6 /var/log/nginx/access.log
+tail -n 6 /var/log/nginx/error.log
+
+sudo vim /etc/nginx/sites-enabled/askme
+sudo vim /etc/nginx/nginx.conf
+
+sudo service nginx reload
+
+
+>> тестирование с кэшированием и gunicorn
+
+ab -n 100 -c 10 "http://127.0.0.1/" > artifacts/hw6/ab_cache.txt
+
+ab -n 100 -c 10 "http://127.0.0.1:8080/" > artifacts/hw6/ab_dynamic_gunicorn.txt
+
+ab -n 100 -c 10 "http://127.0.0.1:8080/static/css/styles.css" > artifacts/hw6/ab_statis_gunicorn.txt
+
+
+
+>> провека gzip
+
+curl -vv -H "Accept-Encoding: gzip" "http://127.0.0.1/static/css/styles.css"
+
